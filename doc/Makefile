@@ -50,6 +50,9 @@ clean:
 	-rm -rf $(BUILDDIR)/*
 	-rm -rf examples_regression/
 	-rm -rf examples_classification/
+	-rm -rf examples_multilabel_classification/
+	-rm -rf examples_calibration/
+	-rm -rf examples_mondrian/
 	-rm -rf generated/*
 	-rm -rf modules/generated/*
 

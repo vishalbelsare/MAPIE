@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .DS_Store
+.mypy*
 
 # C extensions
 *.so
@@ -11,6 +12,9 @@ __pycache__/
 doc/_build/
 doc/examples_classification/
 doc/examples_regression/
+doc/examples_calibration/
+doc/examples_multilabel_classification/
+doc/examples_mondrian/
 doc/auto_examples/
 doc/modules/generated/
 doc/datasets/generated/
@@ -67,12 +71,21 @@ coverage.xml
 doc/_build/
 doc/generated/
 
+# Notebooks checkpoints
+**.ipynb_checkpoints
+
 # PyBuilder
 target/
 
 # VSCode
 .vscode
+.idea/
 
 # Images
-*.png
 *.jpeg
+
+# ZIP files
+*.zip
+
+# Pyenv
+.python-version
