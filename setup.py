@@ -1,9 +1,9 @@
 import codecs
+
 from setuptools import find_packages, setup
 
-
 DISTNAME = "MAPIE"
-VERSION = "0.3.1"
+VERSION = "0.9.2"
 DESCRIPTION = (
     "A scikit-learn-compatible module "
     "for estimating prediction intervals."
@@ -19,29 +19,21 @@ PROJECT_URLS = {
     "Source Code": "https://github.com/scikit-learn-contrib/MAPIE"
 }
 LICENSE = "new BSD"
-MAINTAINER = "V. Taquet, G. Martinon"
-MAINTAINER_EMAIL = "vtaquet@quantmetry.com, gmartinon@quantmetry.com"
+MAINTAINER = "V. Laurent, T. Cordier, V. Blot, L. Lacombe"
+MAINTAINER_EMAIL = (
+    "valentin.laurent@capgemini.com, "
+    "thibault.a.cordier@capgemini.com, "
+    "vincent.blot@capgemini.com, "
+    "louis.lacombe@capgemini.com"
+)
 PYTHON_REQUIRES = ">=3.7"
 PACKAGES = find_packages()
-INSTALL_REQUIRES = ["scikit-learn"]
-EXTRAS_REQUIRE = {
-    "tests": [
-        "flake8",
-        "mypy",
-        "pytest",
-        "pytest-cov",
-        "typed-ast"
-    ],
-    "docs": [
-        "matplotlib",
-        "numpydoc",
-        "pandas",
-        "sphinx",
-        "sphinx-gallery",
-        "sphinx_rtd_theme",
-        "typing_extensions"
-    ]
-}
+INSTALL_REQUIRES = [
+    "scikit-learn<1.6.0",
+    "scipy",
+    "numpy>=1.21",
+    "packaging"
+]
 CLASSIFIERS = [
     "Intended Audience :: Science/Research",
     "Intended Audience :: Developers",
@@ -54,7 +46,9 @@ CLASSIFIERS = [
     "Operating System :: MacOS",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9"
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11"
 ]
 
 setup(
@@ -72,7 +66,6 @@ setup(
     packages=PACKAGES,
     python_requires=PYTHON_REQUIRES,
     install_requires=INSTALL_REQUIRES,
-    extras_require=EXTRAS_REQUIRE,
     classifiers=CLASSIFIERS,
     zip_safe=False  # the package can run out of an .egg file
 )
