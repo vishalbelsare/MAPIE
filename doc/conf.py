@@ -12,9 +12,11 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys
 import os
+import sys
+from distutils.version import LooseVersion
 
+import sphinx
 import sphinx_gallery
 import sphinx_rtd_theme
 
@@ -36,25 +38,26 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.viewcode",
     "sphinx.ext.mathjax",
     "numpydoc",
     "sphinx_gallery.gen_gallery",
 ]
-mathjax_path = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-
+mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
 
 # this is needed for some reason...
 # see https://github.com/numpy/numpydoc/issues/69
 numpydoc_show_class_members = False
 
 # pngmath / imgmath compatibility layer for different sphinx versions
-import sphinx
-from distutils.version import LooseVersion
 if LooseVersion(sphinx.__version__) < LooseVersion("1.4"):
     extensions.append("sphinx.ext.pngmath")
 else:
     extensions.append("sphinx.ext.imgmath")
+
+# Ensure imgmath_latex is correctly set
+imgmath_latex = 'latex'
 
 autodoc_default_flags = ["members", "inherited-members"]
 
@@ -64,6 +67,10 @@ templates_path = ["_templates"]
 # generate autosummary even if no references
 autosummary_generate = True
 
+
+autosectionlabel_prefix_document = True
+autosectionlabel_maxdepth = 2
+
 # The suffix of source filenames.
 source_suffix = ".rst"
 
@@ -71,21 +78,21 @@ source_suffix = ".rst"
 # source_encoding = "utf-8-sig"
 
 # Generate the plots for the gallery
-plot_gallery = "True"
+plot_gallery = True
 
 # The master toctree document.
 master_doc = "index"
 
 # General information about the project.
 project = u"MAPIE"
-copyright = u"2021, Quantmetry"
+copyright = u"2022, Quantmetry"
 
 # The version info for the project you"re documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 # The short X.Y version.
-version = "0.3.1"
+version = "0.9.2"
 # The full version, including alpha/beta/rc tags.
 release = version
 
@@ -221,10 +228,8 @@ htmlhelp_basename = "mapiedoc"
 latex_elements = {
     # The paper size ("letterpaper" or "a4paper").
     # "papersize": "letterpaper",
-
     # The font size ("10pt", "11pt" or "12pt").
     # "pointsize": "10pt",
-
     # Additional stuff for the LaTeX preamble.
     # "preamble": "",
 }
@@ -261,9 +266,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ("index", "mapie", u"MAPIE Documentation", [u"Quantmetry"], 1)
-]
+man_pages = [("index", "mapie", u"MAPIE Documentation", [u"Quantmetry"], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -282,7 +285,7 @@ texinfo_documents = [
         u"Quantmetry",
         "MAPIE",
         "One line description of project.",
-        "Miscellaneous"
+        "Miscellaneous",
     ),
 ]
 
@@ -302,20 +305,34 @@ texinfo_documents = [
 # Example configuration for intersphinx: refer to the Python standard library.
 # intersphinx configuration
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/{.major}".format(sys.version_info), None),
+    "python": (
+        "https://docs.python.org/{.major}".format(sys.version_info),
+        None,
+    ),
     "numpy": ("https://docs.scipy.org/doc/numpy/", None),
     "matplotlib": ("https://matplotlib.org/", None),
-    "sklearn": ("http://scikit-learn.org/stable", None)
+    "sklearn": ("http://scikit-learn.org/stable", None),
 }
 
 # sphinx-gallery configuration
 sphinx_gallery_conf = {
-    'examples_dirs': ['../examples/regression', '../examples/classification'],
-    'gallery_dirs': ['examples_regression', 'examples_classification'],
+    "examples_dirs": [
+        "../examples/regression",
+        "../examples/classification",
+        "../examples/multilabel_classification",
+        "../examples/calibration",
+        "../examples/mondrian",
+    ],
+    "gallery_dirs": [
+        "examples_regression",
+        "examples_classification",
+        "examples_multilabel_classification",
+        "examples_calibration",
+        "examples_mondrian",
+    ],
     "doc_module": "mapie",
     "backreferences_dir": os.path.join("generated"),
-    "reference_url": {
-        "mapie": None}
+    "reference_url": {"mapie": None},
 }
 
 
